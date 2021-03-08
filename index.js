@@ -25,8 +25,25 @@ app.use(methodOverride('_method'));
 app.use(express.urlencoded({ extended: true }));
 
 app.get('/products', async (req, res) => {
-	const products = await Product.find({});
-	res.render('products/index', { products });
+	const { category } = req.query;
+	if (category) {
+		const products = await Product.find({ category });
+		const capitalizedCategory =
+			category.charAt(0).toUpperCase() + category.slice(1);
+
+		res.render('products/index', {
+			products,
+			category,
+			capitalizedCategory,
+		});
+	} else {
+		const products = await Product.find({});
+		res.render('products/index', {
+			products,
+			capitalizedCategory: 'All',
+			category,
+		});
+	}
 });
 
 app.get('/products/new', (req, res) => {
