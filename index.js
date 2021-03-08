@@ -45,6 +45,13 @@ app.get('/products/:id/edit', async (req, res) => {
 	res.render('products/edit', { product, categories });
 });
 
+app.post('/products', async (req, res) => {
+	const newProduct = new Product(req.body);
+	await newProduct.save();
+	console.log(newProduct);
+	res.redirect(`/products/${newProduct._id}`);
+});
+
 app.put('/products/:id', async (req, res) => {
 	const { id } = req.params;
 	const product = await Product.findByIdAndUpdate(id, req.body, {
@@ -54,11 +61,10 @@ app.put('/products/:id', async (req, res) => {
 	console.log(req.body);
 });
 
-app.post('/products', async (req, res) => {
-	const newProduct = new Product(req.body);
-	await newProduct.save();
-	console.log(newProduct);
-	res.redirect(`/products/${newProduct._id}`);
+app.delete('/products/:id', async (req, res) => {
+	const { id } = req.params;
+	const productToDelete = await Product.findByIdAndDelete(id);
+	res.redirect('/products');
 });
 
 app.listen(PORT, () => {
