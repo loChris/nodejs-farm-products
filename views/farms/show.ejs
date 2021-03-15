@@ -12,11 +12,10 @@
 			<li>City: <%= farm.city %></li>
 			<li>Email: <%= farm.email %></li>
 		</ul>
-
+		<a href="/farms/<%= farm._id %>/products/new">
+			Add a Product to this Farm
+		</a>
+		<br />
 		<a href="/farms">All Farms</a>
-		<a href="/farms/<%= farm._id %>/edit ">Edit Farm</a>
-		<form action="/farms/<%= farm._id %>?_method=DELETE" method="POST">
-			<button>Delete</button>
-		</form>
 	</body>
 </html>
