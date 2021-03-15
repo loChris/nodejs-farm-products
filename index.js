@@ -66,6 +66,11 @@ app.post('/farms', async (req, res) => {
 	res.redirect('farms');
 });
 
+app.delete('/farms/:id', async (req, res) => {
+	const farm = await Farm.findByIdAndDelete(req.params.id);
+	res.redirect('/farms');
+});
+
 // *** PRODUCT ROUTES ***
 app.get('/products', async (req, res) => {
 	const { category } = req.query;

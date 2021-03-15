@@ -27,5 +27,8 @@
 		</a>
 		<br />
 		<a href="/farms">All Farms</a>
+		<form action="/farms/<%= farm._id %>?_method=DELETE" method="POST">
+			<button>Delete</button>
+		</form>
 	</body>
 </html>
